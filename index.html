@@ -41,7 +41,7 @@
             gap: 30px;
         }
 
-        .nav-links button {
+        .nav-links a {
             text-decoration: none;
             color: #333;
             font-size: 14px;
@@ -49,11 +49,9 @@
             border: 2px solid transparent;
             transition: all 0.3s;
             cursor: pointer;
-            background: none;
-            font-family: Arial, sans-serif;
         }
 
-        .nav-links button:hover, .nav-links button.active {
+        .nav-links a:hover, .nav-links a.active {
             border: 2px solid #333;
             background: #333;
             color: #fff;
@@ -462,11 +460,11 @@
     <nav>
         <div class="logo">PIXELCRAFTbyVNemo</div>
         <div class="nav-links">
-            <button class="nav-link active" onclick="showSection('home')">HOME</button>
-            <button class="nav-link" onclick="showSection('about')">ABOUT</button>
-            <button class="nav-link" onclick="showSection('portfolio')">PORTFOLIO</button>
-            <button class="nav-link" onclick="showSection('skills')">MY SKILLS</button>
-            <button class="nav-link" onclick="showSection('contact')">CONTACT</button>
+            <a href="javascript:void(0);" class="nav-link active" onclick="showSection('home')">HOME</a>
+            <a href="javascript:void(0);" class="nav-link" onclick="showSection('about')">ABOUT</a>
+            <a href="javascript:void(0);" class="nav-link" onclick="showSection('portfolio')">PORTFOLIO</a>
+            <a href="javascript:void(0);" class="nav-link" onclick="showSection('skills')">MY SKILLS</a>
+            <a href="javascript:void(0);" class="nav-link" onclick="showSection('contact')">CONTACT</a>
         </div>
     </nav>
 
@@ -477,7 +475,7 @@
             <h1>NICOLAS</h1>
             <h2>Graphics Designer</h2>
             <p>Welcome to my digital realm of pixels and code</p>
-            <button class="btn" onclick="showSection('portfolio')">EXPLORE MY WORK</button>
+            <a href="javascript:void(0);" class="btn" onclick="showSection('portfolio')">EXPLORE MY WORK</a>
         </div>
     </section>
 
@@ -504,7 +502,7 @@
                         <div class="label">Passion</div>
                     </div>
                 </div>
-                <button class="btn" onclick="showSection('skills')">SEE MY SKILLS</button>
+                <a href="javascript:void(0);" class="btn" onclick="showSection('skills')">SEE MY SKILLS</a>
             </div>
         </div>
     </section>
@@ -538,7 +536,7 @@
                 <p>Application</p>
             </div>
         </div>
-        <button class="btn" onclick="showSection('contact')">CONTACT ME</button>
+        <a href="javascript:void(0);" class="btn" onclick="showSection('contact')">CONTACT ME</a>
     </section>
 
     <!-- Skills Section -->
@@ -574,7 +572,7 @@
             </div>
         </div>
         <br><br>
-        <button class="btn" onclick="showSection('contact')">GET IN TOUCH</button>
+        <a href="javascript:void(0);" class="btn" onclick="showSection('contact')">GET IN TOUCH</a>
     </section>
 
     <!-- Contact Section -->
@@ -621,48 +619,44 @@
     <script>
         function showSection(sectionId) {
             // Hide all sections
-            document.querySelectorAll('section').forEach(section => {
-                section.classList.remove('active');
-            });
+            var sections = document.querySelectorAll('section');
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].classList.remove('active');
+            }
             
             // Show selected section
-            const targetSection = document.getElementById(sectionId);
+            var targetSection = document.getElementById(sectionId);
             if (targetSection) {
                 targetSection.classList.add('active');
             }
             
             // Update nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Find and activate the corresponding nav button
-            const navButtons = document.querySelectorAll('.nav-link');
-            navButtons.forEach(btn => {
-                if (btn.textContent.toLowerCase().includes(sectionId) || 
-                    (sectionId === 'home' && btn.textContent === 'HOME') ||
-                    (sectionId === 'about' && btn.textContent === 'ABOUT') ||
-                    (sectionId === 'portfolio' && btn.textContent === 'PORTFOLIO') ||
-                    (sectionId === 'skills' && btn.textContent === 'MY SKILLS') ||
-                    (sectionId === 'contact' && btn.textContent === 'CONTACT')) {
-                    btn.classList.add('active');
+            var navLinks = document.querySelectorAll('.nav-link');
+            for (var j = 0; j < navLinks.length; j++) {
+                navLinks[j].classList.remove('active');
+                var linkText = navLinks[j].textContent.toLowerCase();
+                if ((sectionId === 'home' && linkText === 'home') ||
+                    (sectionId === 'about' && linkText === 'about') ||
+                    (sectionId === 'portfolio' && linkText === 'portfolio') ||
+                    (sectionId === 'skills' && linkText === 'my skills') ||
+                    (sectionId === 'contact' && linkText === 'contact')) {
+                    navLinks[j].classList.add('active');
                 }
-            });
+            }
             
             // Scroll to top
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            window.scrollTo(0, 0);
         }
 
         // Contact form handler
-        document.getElementById('sendBtn').addEventListener('click', function() {
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const subject = document.getElementById('contactSubject').value;
-            const message = document.getElementById('contactMessage').value;
+        document.getElementById('sendBtn').onclick = function() {
+            var name = document.getElementById('contactName').value;
+            var email = document.getElementById('contactEmail').value;
+            var subject = document.getElementById('contactSubject').value;
+            var message = document.getElementById('contactMessage').value;
 
             if (name && email && message) {
                 alert('Thank you for your message! I will get back to you soon.');
-                // Clear form
                 document.getElementById('contactName').value = '';
                 document.getElementById('contactEmail').value = '';
                 document.getElementById('contactSubject').value = '';
@@ -670,7 +664,7 @@
             } else {
                 alert('Please fill in all required fields (Name, Email, and Message).');
             }
-        });
+        };
     </script>
 </body>
 </html>
